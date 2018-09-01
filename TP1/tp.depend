@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1535822174 source:d:\clases-programacion-laboratorio\clases-programacion\tp1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"math.h"
+
+1535819217 d:\clases-programacion-laboratorio\clases-programacion\tp1\math.h
+
+1535826186 source:d:\clases-programacion-laboratorio\clases-programacion\tp1\math.c
+	<stdio.h>
+	<stdlib.h>
+
