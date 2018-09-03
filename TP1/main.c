@@ -7,10 +7,10 @@
 int main()
 {
     int salir,opcion, operacionesRealizadas;
-    float num1 = 0,num2 = 0, rtdoSuma,rtdoResta, rtdoProducto, rtdoDivision, rtdoFactorial;
+    double num1 = 0,num2 = 0, rtdoSuma,rtdoResta, rtdoProducto, rtdoDivision, rtdoFactorial;
     do{
 
-        printf("1.ingrese 1er operando (A=%.2f)\n2.ingrese 2do operando (B=%.2f)\n3.calcular todas las operaciones\n4 informar resultados\n5 salir\n", num1,num2);
+        printf("1.ingrese 1er operando (A=%.2lf)\n2.ingrese 2do operando (B=%.2lf)\n3.calcular todas las operaciones\n4 informar resultados\n5 salir\n", num1,num2);
         printf("ingrese una opcion del menu:");
 //        __fpurge(stdin);
         fflush(stdin);
@@ -37,18 +37,25 @@ int main()
                 if(operacionesRealizadas == 1)
                 {
 
-                    printf("\n %.2f + %.2f = %.2f",num1,num2,rtdoSuma);
-                    printf("\n %.2f - %.2f = %.2f",num1,num2,rtdoResta);
-                    printf("\n %.2f * %.2f = %.2f",num1,num2,rtdoProducto);
+                    printf("\n %.2lf + %.2lf = %.2lf",num1,num2,rtdoSuma);
+                    printf("\n %.2lf - %.2lf = %.2lf",num1,num2,rtdoResta);
+                    printf("\n %.2lf * %.2lf = %.2lf",num1,num2,rtdoProducto);
                     if(rtdoDivision != -1)
                     {
-                        printf("\n %.2f / %.2f = %.2f",num1,num2,rtdoDivision);
+                        printf("\n %.2lf / %.2lf = %.2lf",num1,num2,rtdoDivision);
                     }
                     else
                     {
-                        printf("\n %.2f / %.2f = Error matematico",num1,num2);
+                        printf("\n %.2lf / %.2lf = Error matematico",num1,num2);
                     }
-                    printf("\n %.2f ! = %.2f",num1,rtdoFactorial);
+                    if(rtdoFactorial == -1)
+                    {
+                         printf("\n %.2lf ! = Numero demasiado grande",num1);
+                    }
+                    else{
+                          printf("\n %.2lf ! = %.2lf",num1,rtdoFactorial);
+                    }
+
                 }
                 else
                 {

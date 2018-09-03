@@ -6,33 +6,46 @@
 *\param pNumero puntero que apunta a la posicion de memoria de la variable a la cual se le asigna el numero ingresado por el usuario.
 
 */
- void ingresarNumero(float* pNumero)
+ void ingresarNumero(double* pNumero)
 
     {
-        printf("ingrese un numero: ");
-//        __fpurge(stdin);
-        fflush(stdin);
-        scanf("%f",pNumero);
+        double auxiliar;
+        int flag = 1;
+        do{
+            printf("ingrese un numero: ");
+    //        __fpurge(stdin);
+            fflush(stdin);
+            flag = scanf("%lf",&auxiliar);
+
+            if(flag == 1)
+            {
+                *pNumero = auxiliar;
+            }
+            else{
+                printf("Error, ingrese un numero valido... ");
+            }
+        }while(flag != 1);
+
     }
 
 /**
 *\brief suma los valores recibidos por parametro y retorna el resultado
 */
-float sumar(float num1,float num2)
+double sumar(double num1,double num2)
 {
     return num1 + num2;
 }
 /**
 *\brief resta los valores recibidos por parametro y retorna el resultado
 */
-float restar(float num1,float num2)
+double restar(double num1,double num2)
 {
     return num1 - num2;
 }
 /**
 *\brief multiplica los valores recibidos por parametro y retorna el resultado
 */
-float multiplicar(float num1,float num2)
+double multiplicar(double num1,double num2)
 {
     return num1 * num2;
 }
@@ -40,7 +53,7 @@ float multiplicar(float num1,float num2)
 *\brief divide los valores recibidos por parametro y retorna el  resultado
 *\return num1 dividido en num2. si el parametro num2 es 0 retornara -1
 */
-float dividir(float num1,float num2)
+double dividir(double num1,double num2)
 {
     if(num2 != 0)
     {
@@ -51,8 +64,11 @@ float dividir(float num1,float num2)
 /**
 *\brief retorna el factorial del numero recibido por parametro
 */
-float calcularFactorial(float num)
+double calcularFactorial(double num)
 {
+    if(num > 100)
+        return -1;
+
     if(num == 1)
     {
         return 1;

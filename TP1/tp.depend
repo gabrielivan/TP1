@@ -11,3 +11,15 @@
 	<stdio.h>
 	<stdlib.h>
 
+1535988292 source:d:\tp1\tp1\math.c
+	<stdio.h>
+	<stdlib.h>
+
+1535988467 source:d:\tp1\tp1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"math.h"
+
+1535986640 d:\tp1\tp1\math.h
+
