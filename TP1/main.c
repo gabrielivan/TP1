@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <stdio_ext.h>
+#include <stdio_ext.h>
 #include "math.h"
 
 int main()
 {
-    int salir,opcion, operacionesRealizadas;
+    int operacionesRealizadas;
+    int opcion;
+    int salir;
     double num1 = 0,num2 = 0, rtdoSuma,rtdoResta, rtdoProducto, rtdoDivision, rtdoFactorial;
     do{
 
         printf("1.ingrese 1er operando (A=%.2lf)\n2.ingrese 2do operando (B=%.2lf)\n3.calcular todas las operaciones\n4 informar resultados\n5 salir\n", num1,num2);
         printf("ingrese una opcion del menu:");
-//        __fpurge(stdin);
-        fflush(stdin);
+        __fpurge(stdin);
         scanf("%d",&opcion);
         switch(opcion)
         {
@@ -63,15 +64,14 @@ int main()
                 }
                 break;
 
-            case 5: // salir
+            case 5:
                 salir = 1;
                 break;
             default:
                 printf("Ingrese una opcion valida!\n");
         }
 
-//        __fpurge(stdin);
-        fflush(stdin);
+        __fpurge(stdin);
         printf("\n ingrese enter para continuar....");
         getchar();
         system("@cls||clear");

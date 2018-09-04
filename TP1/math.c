@@ -13,8 +13,7 @@
         int flag = 1;
         do{
             printf("ingrese un numero: ");
-    //        __fpurge(stdin);
-            fflush(stdin);
+            __fpurge(stdin);
             flag = scanf("%lf",&auxiliar);
 
             if(flag == 1)
