@@ -8,9 +8,9 @@
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path Ruta del archivo para leer
+ * \param pArrayListEmployee Es el LinkedList
+ * \return retorna 0 si el array no es null y si el archivo existe, sino retorna -1
  *
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
@@ -26,11 +26,11 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo data.csv (modo binario).
+/** \brief Carga los datos de los empleados desde el archivo data.bin (modo binario).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path Ruta del archivo para leer
+ * \param pArrayListEmployee Es el LinkedList
+ * \return retorna 0 si el array no es null y si el archivo existe, sino retorna -1
  *
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
@@ -49,9 +49,8 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 
 /** \brief Alta de empleados
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee Es el LinkedList donde se agregara el empleado
+ * \return Retorna 0 si se logra hacer el alta, sino retorna -1
  *
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
@@ -75,9 +74,8 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Modificar datos de empleado
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee Es el LinkedList del cual se va a editar un empleado
+ * \return Retorna 0 si se logra editar sino retorna -1
  *
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
@@ -127,9 +125,8 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Baja de empleado
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee Es la LinkedList de empleados
+ * \return Retorna 0 si se logra realizar la baja sino retorna -1
  *
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
@@ -164,8 +161,10 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 }
 
 /** \brief Listar empleados
- * \param pArrayListEmployee LinkedList* es el array a ser reccorrido
- * \return retorna -1 en caso de error sino retorna 0
+ *
+ * \param pArrayListEmployee Es la LinkedList del cual se desea listar los empleados
+ * \return retorna 0 si la LinkedList es diferente a NULL sino retorna -1
+ *
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
@@ -199,11 +198,10 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Ordenar empleados
+/** \brief Ordenar empleados por criterio
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param pArrayListEmployee Es la LinkedList que se desea ordenar
+ * \return retorna 0 si se logra ordenar sino retorna -1
  *
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
@@ -223,9 +221,9 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path Ruta donde se guardara el archivo
+ * \param pArrayListEmployee Es la LinkedList con los elementos a guardar
+ * \return Retorna 0 si se logra guardar sino retorna -1
  *
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
@@ -241,11 +239,12 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
+
+/** \brief Guarda los datos de los empleados en el archivo data.bin (modo binario).
  *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
+ * \param path Ruta donde se guardara el archivo
+ * \param pArrayListEmployee Es la LinkedList con los elementos a guardar
+ * \return Retorna 0 si se logra guardar sino retorna -1
  *
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)

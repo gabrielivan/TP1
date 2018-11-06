@@ -3,12 +3,10 @@
 #include "LinkedList.h"
 #include "Employee.h"
 
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/** \brief Parsea los datos de los empleados desde el archivo data.csv (modo texto).
+ * \param FILE* pFile Puntero del tipo file al archivo para parsear
+ * \param pArrayListEmployee LinkedList* lista donde se van a a guardar los empleados
+ * \return en caso de exito retorna 0 y en caso de error retorna -1
  */
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
@@ -56,12 +54,10 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
+/** \brief Parsea los datos de los empleados desde el archivo data.csv (modo binario).
+ * \param FILE* pFile Puntero del tipo file al archivo para parsear
+ * \param pArrayListEmployee LinkedList* lista donde se van a a guardar los empleados
+ * \return en caso de exito retorna 0 y en caso de error retorna -1
  */
 
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
@@ -83,6 +79,14 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 
     return retorno;
 }
+
+/** \brief Parsea los datos del linked list al archivo data.csv (modo texto).
+ *
+ * \param pFile Es el puntero a archivo para escribir los datos
+ * \param pArrayListEmployee Es la LinkedList de donde se toman los datos
+ * \return Retorna 0 si existe el archivo y el LinkedList sino retorna -1
+ *
+ */
 
 int parser_SaveToText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
@@ -109,6 +113,14 @@ int parser_SaveToText(FILE* pFile , LinkedList* pArrayListEmployee)
     }
     return retorno;
 }
+
+/** \brief Parsea los datos del linked list al archivo data.bin (modo binario).
+ *
+ * \param pFile Es el puntero a archivo para escribir los datos
+ * \param pArrayListEmployee Es la LinkedList de donde se toman los datos
+ * \return Retorna 0 si existe el archivo y el LinkedList sino retorna -1
+ *
+ */
 
 int parser_SaveToBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
