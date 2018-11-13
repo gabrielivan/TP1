@@ -4,6 +4,36 @@
 #include "../inc/LinkedList.h"
 
 
+static Node* actualNode = NULL;
+/** \brief Coloca el iterador en el primer nodo
+ *
+ *  \param this LinkedList* Puntero a la lista
+ */
+void ll_startIterator(LinkedList* this)
+{
+    if(this != NULL)
+    {
+        actualNode = this->pFirstNode;
+    }
+}
+
+/** \brief  Toma el siguiente elemento de la lista utilizando el nodo declarado estaticamente
+ *          Y coloca el nodo en el siguiente indice de la lista
+ *  \param void
+ *  \return void*   Retorna (NULL) en el caso de no conseguir un nuevo elemento o si el siguiente elemento es NULL
+ *                  Y retorna el puntero al elemento si existe.
+ */
+void* ll_getNext()
+{
+    void* returnAux = NULL;
+    if(actualNode != NULL)
+    {
+        returnAux = actualNode->pElement;
+        actualNode = actualNode->pNextNode;
+    }
+    return returnAux;
+}
+
 static Node* getNode(LinkedList* this, int nodeIndex);
 static int addNode(LinkedList* this, int nodeIndex,void* pElement);
 
@@ -582,8 +612,30 @@ int ll_swapElement(LinkedList* this, Node* pNodeAnterior)
     return returnAux;
 }
 
-LinkedList* ll_filter(LinkedList* this,int(*pFunc)(void* pElement))
+/** \brief Filtra los elementos de una LinkedList y guarda en una nueva los que cumplen con el criterio indicado
+ * \param pList LinkedList* Puntero a la lista
+ * \param pFunc (*pFunc) Puntero a la funcion criterio que devuelve un 1 si se debe guardar en la nueva lista
+ *                                                                     0 si no cumple con el criterio
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL o el puntero a la funcion es NULL
+                                ( 0) Si ok
+ */
+LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void* pElement))
 {
+    void* auxElement = NULL;
     LinkedList* returnAux = NULL;
+    int i;
+    if(this != NULL && ll_len(this) > 0 && pFunc != NULL)
+    {
+        returnAux = ll_newLinkedList();
+        ll_startIterator(this);
+        for(i=0; i<ll_len(this); i++)
+        {
+            auxElement = ll_getNext();
+            if((*pFunc)(auxElement) == 1)
+            {
+                ll_add(returnAux, auxElement);
+            }
+        }
+    }
     return returnAux;
 }
