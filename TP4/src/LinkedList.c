@@ -4,7 +4,6 @@
 #include "../inc/LinkedList.h"
 
 
-static Node* actualNode = NULL;
 /** \brief Coloca el iterador en el primer nodo
  *
  *  \param this LinkedList* Puntero a la lista
@@ -13,7 +12,7 @@ void ll_startIterator(LinkedList* this)
 {
     if(this != NULL)
     {
-        actualNode = this->pFirstNode;
+        this->actualNode = this->pFirstNode;
     }
 }
 
@@ -23,13 +22,13 @@ void ll_startIterator(LinkedList* this)
  *  \return void*   Retorna (NULL) en el caso de no conseguir un nuevo elemento o si el siguiente elemento es NULL
  *                  Y retorna el puntero al elemento si existe.
  */
-void* ll_getNext()
+void* ll_getNext(LinkedList* this)
 {
     void* returnAux = NULL;
-    if(actualNode != NULL)
+    if(this->actualNode != NULL)
     {
-        returnAux = actualNode->pElement;
-        actualNode = actualNode->pNextNode;
+        returnAux = this->actualNode->pElement;
+        this->actualNode = this->actualNode->pNextNode;
     }
     return returnAux;
 }
@@ -630,12 +629,39 @@ LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void* pElement))
         ll_startIterator(this);
         for(i=0; i<ll_len(this); i++)
         {
-            auxElement = ll_getNext();
+            auxElement = ll_getNext(this);
             if((*pFunc)(auxElement) == 1)
             {
                 ll_add(returnAux, auxElement);
             }
         }
     }
+    return returnAux;
+}
+
+int ll_map(LinkedList* this, int (*pFunc)(void*))
+{
+    int returnAux = -1;
+    int i;
+    void* auxElement = NULL;
+
+    if(this != NULL && ll_len(this) > 0 && pFunc != NULL)
+    {
+        ll_startIterator(this);
+        for(i=0; i<ll_len(this); i++)
+        {
+            auxElement = ll_getNext(this);
+            if((*pFunc)(auxElement) == 0)
+            {
+                returnAux = 0;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+
     return returnAux;
 }
