@@ -7,7 +7,7 @@
 
 /** \brief Alta de empleados
  *
- * \param pArrayListEmployee Es el LinkedList donde se agregara el empleado
+ * \param listaEmpleados Es el LinkedList donde se agregara el empleado
  * \return Retorna 0 si se logra hacer el alta, sino retorna -1
  *
  */
@@ -32,7 +32,7 @@ int controller_agregarEmpleado(LinkedList* listaEmpleados)
 
 /** \brief Modificar datos de empleado
  *
- * \param pArrayListEmployee Es el LinkedList del cual se va a editar un empleado
+ * \param listaEmpleados Es el LinkedList del cual se va a editar un empleado
  * \return Retorna 0 si se logra editar sino retorna -1
  *
  */
@@ -83,7 +83,7 @@ int controller_editarEmpleado(LinkedList* listaEmpleados)
 
 /** \brief Baja de empleado
  *
- * \param pArrayListEmployee Es la LinkedList de empleados
+ * \param listaEmpleados Es la LinkedList de empleados
  * \return Retorna 0 si se logra realizar la baja sino retorna -1
  *
  */
@@ -124,7 +124,7 @@ int controller_borrarEmpleado(LinkedList* listaEmpleados,LinkedList* listaEmplea
 
 /** \brief Listar empleados
  *
- * \param pArrayListEmployee Es la LinkedList del cual se desea listar los empleados
+ * \param listaEmpleados Es la LinkedList del cual se desea listar los empleados
  * \return retorna 0 si la LinkedList es diferente a NULL sino retorna -1
  *
  */
@@ -162,7 +162,7 @@ int controller_ListarEmpleados(LinkedList* listaEmpleados)
 
 /** \brief Ordenar empleados por criterio
  *
- * \param pArrayListEmployee Es la LinkedList que se desea ordenar
+ * \param listaEmpleados Es la LinkedList que se desea ordenar
  * \return retorna 0 si se logra ordenar sino retorna -1
  *
  */
@@ -181,7 +181,12 @@ int controller_ordenarEmpleados(LinkedList* listaEmpleados)
     return retorno;
 }
 
-int controller_borrarTodosLosEmpleados(LinkedList* listaEmpleados,LinkedList* listaEmpleadosBorrados)
+/** \brief Borra todos los empleados de la lista
+ * \param listaEmpleados Es la LinkedList de empleados a borrar
+ * \return Retorna 0 si se logra realizar la baja sino retorna -1
+ */
+
+int controller_borrarTodosLosEmpleados(LinkedList* listaEmpleados)
 {
     int retorno = -1;
     if(listaEmpleados != NULL && listaEmpleados->size > 0)
@@ -198,6 +203,12 @@ int controller_borrarTodosLosEmpleados(LinkedList* listaEmpleados,LinkedList* li
     }
     return retorno;
 }
+
+/** \brief Borra todos los empleados que fueron dados de baja de la lista de empleados borrados y la lista
+ * \param listaEmpleadosBorrados Es la LinkedList de empleados a borrar
+ * \return Retorna 0 si se logra realizar la baja sino retorna -1
+ */
+
 int controller_borrarTodaLaLista(LinkedList* listaEmpleadosBorrados)
 {
     int retorno = -1;
@@ -216,6 +227,11 @@ int controller_borrarTodaLaLista(LinkedList* listaEmpleadosBorrados)
     return retorno;
 }
 
+/** \brief Clona lista de empleados
+ * \param listaEmpleados LinkedList* lista de empleados que se va a clonar
+ * \return listaNuevaDeEmpleados si se pudo clonar y [NULL] si hubo algun error
+ */
+
 LinkedList* controller_clonarLista(LinkedList* listaEmpleados)
 {
     LinkedList* retornoAux = NULL;
@@ -231,6 +247,11 @@ LinkedList* controller_clonarLista(LinkedList* listaEmpleados)
     }
     return retornoAux;
 }
+
+/** \brief Verifica si existe un empleado en la lista a partir del id que se ingresa
+ * \param listaEmpleados LinkedList* lista de empleados en la que se va a buscar el mismo
+ * \return Retorna 0 si se logra realizar la busqueda, sino retorna -1
+ */
 
 int controller_existeEmpleado(LinkedList* listaEmpleados)
 {
@@ -263,6 +284,12 @@ int controller_existeEmpleado(LinkedList* listaEmpleados)
     return retorno;
 }
 
+/** \brief Funcion que reingresa, un empleado dado de baja, a la lista
+ * \param listaEmpleados LinkedList* lista de empleados en donde se va a realizar el push del empleado dado de baja
+ * \param listaEmpleadosBorrados LinkedList* lista de empleados desde donde se va a quitar el empleado de baja para hacer el push
+ * \return [0] si se pudo hacer el push y [-1] si hubo algun error
+ */
+
 int controller_reingresarEmpleado(LinkedList* listaEmpleados,LinkedList* listaEmpleadosBorrados)
 {
     int retorno = -1;
@@ -274,6 +301,7 @@ int controller_reingresarEmpleado(LinkedList* listaEmpleados,LinkedList* listaEm
 
     if(listaEmpleadosBorrados != NULL && listaEmpleados != NULL)
     {
+        controller_ListarEmpleados(listaEmpleadosBorrados);
         if(!utn_getNumero(&id,"Ingrese el ID del empleado a reingresar: ","\nError,reingrese el id: ",0,99999,2))
         {
             for(i = 0;i< ll_len(listaEmpleadosBorrados);i++)
@@ -299,6 +327,11 @@ int controller_reingresarEmpleado(LinkedList* listaEmpleados,LinkedList* listaEm
     }
     return retorno;
 }
+
+/** \brief Funcion que permite generar una sub-lista segun el id seleccionado por el usuario
+ * \param listaEmpleados LinkedList* desde la cual se va a generar la sub-lista
+ * \return [0] Exito y [-1] Error
+ */
 
 LinkedList* controller_subLista(LinkedList* listaEmpleados)
 {
@@ -346,6 +379,12 @@ LinkedList* controller_subLista(LinkedList* listaEmpleados)
     return retornoAux;
 }
 
+/** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
+ * \param path char* ruta del archivo
+ * \param pArrayListEmployee LinkedList* lista donde se va a guardar el archivo
+ * \return [0] Exito y [-1] Error
+ */
+
 int controller_loadFromText(char* path , LinkedList* listaEmpleados)
 {
     FILE* pArchivo;
@@ -358,6 +397,13 @@ int controller_loadFromText(char* path , LinkedList* listaEmpleados)
     fclose(pArchivo);
     return retorno;
 }
+
+/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
+ *
+ * \param path char* ruta del archivo
+ * \param pArrayListEmployee LinkedList* lista que se va a guardar
+ * \return [0] Exito y [-1] Error
+ */
 
 int controller_saveAsText(char* path , LinkedList* listaEmpleados)
 {

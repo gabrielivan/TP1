@@ -42,13 +42,20 @@ int main()
             printf("\nEl size de la nueva lista es: %d",listaNuevaEmpleados->size);
             break;
         case 2:
-            if(!controller_reingresarEmpleado(listaEmpleados,listaEmpleadosBorrados))
+            if(ll_isEmpty(listaEmpleadosBorrados))
             {
-                printf("Se reingreso al empleado correctamente! \n");
+                printf("No hay empleados a reingresar!\n");
             }
             else
             {
-                printf("No hay empleado/s a reingresar! \n");
+                if(!controller_reingresarEmpleado(listaEmpleados,listaEmpleadosBorrados))
+                {
+                    printf("Se reingreso al empleado correctamente! \n");
+                }
+                else
+                {
+                    printf("No hay empleado/s a reingresar! \n");
+                }
             }
             break;
         case 3:
