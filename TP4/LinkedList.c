@@ -33,8 +33,8 @@ void* ll_getNext(LinkedList* this)
     return returnAux;
 }
 
-static Node* getNode(LinkedList* this, int nodeIndex);
-static int addNode(LinkedList* this, int nodeIndex,void* pElement);
+static Node* getNode(LinkedList* this, int nodeIndex);//obtiene un nodo de la lista,nodeIndex es el indice del nodo a obtener.por que lo hace static?
+static int addNode(LinkedList* this, int nodeIndex,void* pElement);//agrega y enlaza un nuevo nodo a la lista en el indice que le pasas como parametro.  por que es static?
 
 /** \brief Crea un nuevo LinkedList en memoria de manera dinamica
  *
@@ -70,7 +70,6 @@ int ll_len(LinkedList* this)
     return returnAux;
 
 }
-
 
 /** \brief  Obtiene un nodo de la lista
  * \param this LinkedList* Puntero a la lista
@@ -123,45 +122,44 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement) //size de la 
     int returnAux = -1;
     Node* newNode = malloc(sizeof(Node));
 
-    if(this != NULL && nodeIndex >= 0 && nodeIndex <= ll_len(this))
+    if(this != NULL && nodeIndex >= 0 && nodeIndex <= ll_len(this))//Esta es la validacion general ,pregunta que la lista no sea NULL,y que el indice sea 0 o mas y que sea igual a la lista o menor.
     {
         //estoy en condiciones de agregar un nodo.
         //para agregar un nodop tengo que preguntar en que posicion esta.
-        if(this->pFirstNode == NULL && nodeIndex == 0)//D
+        if(this->pFirstNode == NULL && nodeIndex == 0)//pregunta si el primer nodo apunta a NULL y el indice es 0
         {
             //agregar el primer nodo.
             this->pFirstNode = newNode;
-            newNode->pElement = pElement;
-            this->size = ll_len(this) + 1;
+            newNode->pElement = pElement;//de donde salio pElement?
+            this->size = ll_len(this) + 1;//agranda la lista en 1
             returnAux = 0;
         }
-        else if(this->pFirstNode != NULL && nodeIndex == 0)//A
+        else if(this->pFirstNode != NULL && nodeIndex == 0)//pregunta si el primer nodo apunta a otro y el indice es 0
         {
-            //agrego un nodo al principio de la lista
-            Node* oldFirstNode = this->pFirstNode;
-            this->pFirstNode = newNode;
-            this->pFirstNode->pNextNode = oldFirstNode;
-            newNode->pElement = pElement;
+            //agrego un nodo al principio de la lista(atras del primero que ya estaba)
+            Node* oldFirstNode = this->pFirstNode;//guarda al primer nodo en una variable aux(oldFirstNode)
+            this->pFirstNode = newNode;//ahora el primer nodo va a ser mi nuevo nodo
+            this->pFirstNode->pNextNode = oldFirstNode;//ahora pFirstNode(que ya no es mas ese ahora es newNode)apunta a oldFirstNode(que es el original pFirstNode).
+            newNode->pElement = pElement;//me cago en mi vida nose de donde sale este pElement??
             this->size = ll_len(this) + 1;
             returnAux = 0;
         }
-        else if(this->pFirstNode != NULL && nodeIndex > 0 && nodeIndex < ll_len(this))//B
+        else if(this->pFirstNode != NULL && nodeIndex > 0 && nodeIndex < ll_len(this))//pregunta si el primerNodo apunta a otro,que el indice ya no sea 0,y que sea menor al largo de la lista.
         {
             //agrego entre dos nodos
-            Node* oldNodeInIndex = getNode(this,nodeIndex);//traigo al ocupa de nodeIndex
+            Node* oldNodeInIndex = getNode(this,nodeIndex);//traigo al ocupa de nodeIndex y lo guarda en una var aux oldNodeInIndex.
             newNode->pNextNode = oldNodeInIndex;   //el nuevo nodo tiene como siguiente al ocupa
-            Node* previousNode = getNode(this,nodeIndex - 1);  //traigo el nodo anterior a nodeIndex
-            previousNode->pNextNode = newNode;   //el nodo anterior a nodeIndex  tiene como siguiente al nuevo
+            Node* previousNode = getNode(this,nodeIndex - 1);  //traigo el nodo anterior a nodeIndex (osea el anterior al ocupa)
+            previousNode->pNextNode = newNode;   //el nodo anterior a nodeIndex  (osea el anterior al ocupa) tiene como siguiente al nuevo          tengo una pregunta.... el ocupa a quien termino apuntando y en que posicion quedo??
             newNode->pElement = pElement;
             this->size = ll_len(this) + 1;
             returnAux = 0;
         }
-        else if(this->pFirstNode != NULL && nodeIndex == ll_len(this))//C
+        else if(this->pFirstNode != NULL && nodeIndex == ll_len(this))//si el primero apunta a otro y el indice es igual al largo de la lista
         {
             //agrego al final
-            Node* lastNode = getNode(this,nodeIndex - 1);//traigo al ultimo nodo
-            lastNode->pNextNode = newNode;   //el ultimo nodo tiene como siguiente al nuevo
-
+            Node* lastNode = getNode(this,nodeIndex - 1);//traigo al ultimo nodo .aca dice nodeIndex -1 por que si el largo de la lista tiene 4 Nodos los indices son 0 1 2 3 y el indexNode es igual al len osea que el index es 4 por eso es 4 - 1 para traerme al nodo que esta en 3 y que apunte al 4 que va a ser el nuevo.
+            lastNode->pNextNode = newNode;   //el ultimo nodo tiene como siguiente al nuevo y el nuevo apunta NULL no se modifica ninguna posicion en la lista
             newNode->pElement = pElement;
             this->size = ll_len(this) + 1;
             returnAux = 0;
@@ -189,13 +187,13 @@ int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
 
 
 /** \brief  Agrega un elemento a la lista
- * \param pList LinkedList* Puntero a la lista
+ * \param this LinkedList* Puntero a la lista
  * \param pElement void* Puntero al elemento a ser agregado
  * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
                         ( 0) Si funciono correctamente
  *
  */
-int ll_add(LinkedList* this, void* pElement)
+int ll_add(LinkedList* this, void* pElement)//Explica cris
 {
     int returnAux = -1;
     int len = ll_len(this);
@@ -217,7 +215,7 @@ int ll_add(LinkedList* this, void* pElement)
                             (pElement) Si funciono correctamente
  *
  */
-void* ll_get(LinkedList* this, int index)
+void* ll_get(LinkedList* this, int index)//retorna el elemento del nodo que busco con el indice que le mandaste.
 {
     void* returnAux = NULL;
     Node* nodoAux;
@@ -243,7 +241,7 @@ void* ll_get(LinkedList* this, int index)
                         ( 0) Si funciono correctamente
  *
  */
-int ll_set(LinkedList* this, int index,void* pElement)
+int ll_set(LinkedList* this, int index,void* pElement)//modifica al elemento del nodo,(con el elmento que le mandaste), que busco con el indice que vos le mandaste
 {
     int returnAux = -1;
     Node* nodoAux;
@@ -271,31 +269,27 @@ int ll_set(LinkedList* this, int index,void* pElement)
 int ll_remove(LinkedList* this,int index)
 {
     int returnAux = -1;
-    Node* nodoAux = getNode(this,index);
+    Node* nodoAux = getNode(this,index);//me traigo un nodoAux con el indice indicado
 
     if(this != NULL && index >= 0 && index < ll_len(this))
     {
         //estoy en condiciones de borrar un elemento
         //para borrar un nodo tengo que preguntar en que posicion esta.
-        if(index == 0)//D
+        if(index == 0)//Explicacion cris
         {
-            //borro el primer nodo.
             this->pFirstNode = nodoAux->pNextNode;
             free(nodoAux);
             this->size--;
         }
-        else if(index > 0)//B
+        else if(index > 0)//Explicacion cris
         {
-            //borro entre dos nodos
             Node* previousNode = getNode(this,index - 1);
             previousNode->pNextNode = nodoAux->pNextNode;
             free(nodoAux);
             this->size = ll_len(this) - 1;
         }
         returnAux = 0;
-
     }
-
     return returnAux;
 }
 
@@ -348,7 +342,6 @@ int ll_deleteLinkedList(LinkedList* this)
 }
 
 /** \brief Busca el indice de la primer ocurrencia del elemento pasado como parametro
- *
  * \param this LinkedList* Puntero a la lista
  * \param pElement void* Puntero al elemento
  * \return int Retorna  (-1) Error: si el puntero a la lista es NULL
@@ -411,7 +404,7 @@ int ll_isEmpty(LinkedList* this)
                         ( 0) Si funciono correctamente
  *
  */
-int ll_push(LinkedList* this, int index, void* pElement)
+int ll_push(LinkedList* this, int index, void* pElement)//Explicacion cris cual es la diferencia entre el push y el add node ??
 {
     int returnAux = -1;
 
@@ -637,6 +630,14 @@ LinkedList* ll_filter(LinkedList* this, int (*pFunc)(void* pElement))
     return returnAux;
 }
 
+/** \brief Realiza una funcion con cada elemento de la lista.
+ * \param this LinkedList* Puntero a la lista
+ * \param pFunc (*pFunc) Puntero a la funcion criterio que devuelve un 0 si se realizo de manera correcta
+ * \return int Retorna  (-1) Error: si el puntero a la lista es NULL, el puntero a la funcion es NULL o
+ *                      (1) Si se produce un error al utilizar la funcion.
+                                ( 0) Si ok
+ */
+
 int ll_map(LinkedList* this, int (*pFunc)(void*))
 {
     int returnAux = -1;
@@ -659,7 +660,6 @@ int ll_map(LinkedList* this, int (*pFunc)(void*))
             }
         }
     }
-
 
     return returnAux;
 }
